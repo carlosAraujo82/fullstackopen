@@ -43,6 +43,18 @@ const App = () => {
     return (<p>Positive: {(positive/all)*100} %</p>)
   }
 
+  const Statistics = (props) => {
+    return(<div>
+      <h1>Statistics</h1>
+      <p>Good: {props.good}</p>
+      <p>Neutral: {props.neutral}</p>
+      <p>Bad: {props.bad}</p>
+      <p>All: {props.all}</p>
+      <Average/>
+      <Percentage/>
+    </div>)
+  }
+
   return (
     <div>
 		<h1>Give Feedback</h1>
@@ -51,13 +63,7 @@ const App = () => {
 			<button onClick={setNeutralPlusOne}>neutral</button>
 			<button onClick={setBadPlusOne}>bad</button>
 		</p>
-		<h1>Statistics</h1>
-		<p>Good: {good}</p>
-		<p>Neutral: {neutral}</p>
-		<p>Bad: {bad}</p>
-    <p>All: {all}</p>
-    <Average/>
-    <Percentage/>
+    <Statistics good={good} neutral={neutral} bad={bad} all={all}/>
     </div>
   )
 }
