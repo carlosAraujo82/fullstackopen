@@ -25,22 +25,6 @@ const App = () => {
     setSum(sum-1)
   }
 
-  // const Average = () => {
-  //   if (all === 0)
-  //   {
-  //     return (<p>Average: 0</p>)
-  //   }
-  //   return (<p>Average: {sum/all}</p>)
-  // }
-
-  // const Percentage = () => {
-  //   if (positive === 0)
-  //   {
-  //     return (<p>Positive: 0 %</p>)
-  //   }
-  //   return (<p>Positive: {(positive/all)*100} %</p>)
-  // }
-
   const Statistics = (props) => {
     if(all === 0)
     {
@@ -48,12 +32,16 @@ const App = () => {
     }
     return(<div>
       <h1>Statistics</h1>
-      <StatisticLine text="Good: " value={props.good}/>
-      <StatisticLine text="Neutral: " value={props.neutral}/>
-      <StatisticLine text="Bad: " value={props.bad}/>
-      <StatisticLine text="All: " value={props.all}/>
-      <StatisticLine text="Average: " value={props.sum/props.all}/>
-      <StatisticLine text="Positive: " value={(props.good/props.all)*100} signal="%"/>
+      <table border="1">
+        <tbody>
+          <StatisticLine text="Good: " value={props.good}/>
+          <StatisticLine text="Neutral: " value={props.neutral}/>
+          <StatisticLine text="Bad: " value={props.bad}/>
+          <StatisticLine text="All: " value={props.all}/>
+          <StatisticLine text="Average: " value={props.sum/props.all}/>
+          <StatisticLine text="Positive: " value={(props.good/props.all)*100} signal="%"/>
+        </tbody>
+      </table>
     </div>)
   }
 
@@ -62,7 +50,7 @@ const App = () => {
   }
 
   const StatisticLine = (props) => {
-    return (<p>{props.text} {props.value} {props.signal}</p>)
+    return (<tr><td>{props.text}</td><td>{props.value}{props.signal}</td></tr>)
   }
 
   return (
