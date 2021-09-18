@@ -6,13 +6,11 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const [all, setAll] = useState(0)
-  const [positive, setPositive] = useState(0)
   const [sum, setSum] = useState(0);
 
   const setGoodPlusOne = () => {
     setGood(good+1)
     setAll(all+1)
-    setPositive(positive+1)
     setSum(sum+1)
   }
 
@@ -27,21 +25,21 @@ const App = () => {
     setSum(sum-1)
   }
 
-  const Average = () => {
-    if (all === 0)
-    {
-      return (<p>Average: 0</p>)
-    }
-    return (<p>Average: {sum/all}</p>)
-  }
+  // const Average = () => {
+  //   if (all === 0)
+  //   {
+  //     return (<p>Average: 0</p>)
+  //   }
+  //   return (<p>Average: {sum/all}</p>)
+  // }
 
-  const Percentage = () => {
-    if (positive === 0)
-    {
-      return (<p>Positive: 0 %</p>)
-    }
-    return (<p>Positive: {(positive/all)*100} %</p>)
-  }
+  // const Percentage = () => {
+  //   if (positive === 0)
+  //   {
+  //     return (<p>Positive: 0 %</p>)
+  //   }
+  //   return (<p>Positive: {(positive/all)*100} %</p>)
+  // }
 
   const Statistics = (props) => {
     if(all === 0)
@@ -50,24 +48,32 @@ const App = () => {
     }
     return(<div>
       <h1>Statistics</h1>
-      <p>Good: {props.good}</p>
-      <p>Neutral: {props.neutral}</p>
-      <p>Bad: {props.bad}</p>
-      <p>All: {props.all}</p>
-      <Average/>
-      <Percentage/>
+      <StatisticLine text="Good: " value={props.good}/>
+      <StatisticLine text="Neutral: " value={props.neutral}/>
+      <StatisticLine text="Bad: " value={props.bad}/>
+      <StatisticLine text="All: " value={props.all}/>
+      <StatisticLine text="Average: " value={props.sum/props.all}/>
+      <StatisticLine text="Positive: " value={(props.good/props.all)*100} signal="%"/>
     </div>)
+  }
+
+  const Button = (props) => {
+    return (<button onClick={props.onClick}>{props.text}</button>)
+  }
+
+  const StatisticLine = (props) => {
+    return (<p>{props.text} {props.value} {props.signal}</p>)
   }
 
   return (
     <div>
 		<h1>Give Feedback</h1>
 		<p>
-			<button onClick={setGoodPlusOne}>good</button>
-			<button onClick={setNeutralPlusOne}>neutral</button>
-			<button onClick={setBadPlusOne}>bad</button>
+      <Button onClick={setGoodPlusOne} text="good"/>
+      <Button onClick={setNeutralPlusOne} text="neutral"/>
+      <Button onClick={setBadPlusOne} text="bad"/>
 		</p>
-    <Statistics good={good} neutral={neutral} bad={bad} all={all}/>
+    <Statistics good={good} neutral={neutral} bad={bad} sum={sum} all={all}/>
     </div>
   )
 }
