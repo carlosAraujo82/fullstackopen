@@ -11,27 +11,61 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
   ]
    
-  const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
+  const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
   let randomNumber = 0
 
   const getRandomAnecdote = () => {
-    randomNumber = Math.floor(Math.random() * anecdotes.length)
-    setSelected(randomNumber)
+    randomNumber = Math.floor(Math.random() * anecdotes.length);
+    setSelected(randomNumber);
   }
 
   const vote = () => {
-    const copy = [...votes]
-    copy[selected] += 1     
-    setVotes(copy)
+    const copy = [...votes];
+    copy[selected] += 1;     
+    setVotes(copy);
+  }
+
+  const MostVotedAnecdote = () =>
+  {
+    let index = GetIndexOfMostVoted(votes);
+    if (index === -1)
+      return (<p>...</p>);
+    else
+    {
+      let numberOfVotes = votes[index];
+      return(<div><p>{anecdotes[index]}</p><p>has {numberOfVotes} votes</p></div>);
+    }  
+  }
+
+  function GetIndexOfMostVoted(arrayOfVotes)
+  {
+    var maxValue = arrayOfVotes[0];
+    var maxIndex = 0;
+    for (let i = 1; i < arrayOfVotes.length; i++)
+    {
+      if (arrayOfVotes[i] > maxValue)
+      {
+        maxValue = arrayOfVotes[i];
+        maxIndex = i;
+      }
+    }
+
+    if (maxValue === 0)
+      return -1;
+    else
+      return maxIndex;
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes.</p>
       <p><button onClick={vote}>vote</button><button onClick={getRandomAnecdote}>Next Anecdote</button></p>
+      <h1>Anecdote with most votes</h1>
+      <MostVotedAnecdote/>
     </div>
   )
 }
