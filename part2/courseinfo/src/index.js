@@ -7,13 +7,12 @@ const Header = ({ course }) => {
   )
 }
 
-const Total = ({ course }) => {
-  let sum = 0;
-  
-  for (let index = 0; index < course.parts.length; index++) {
-    sum += course.parts[index].exercises;
-  }
+const reduceSumFunction = (previous, current) => {
+   return previous + current.exercises
+};
 
+const Total = ({ course }) => {  
+  let sum = course.parts.reduce(reduceSumFunction,0);
   return(<p><b>Total of {sum} exercises.</b></p>); 
 }
 
